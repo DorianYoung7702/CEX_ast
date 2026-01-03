@@ -13,9 +13,11 @@
 - Interpretation: positive basis implies perpetual trading at a premium to spot; extreme values may indicate risk regimes.
 
 ### Basis time series plots
-- ![](basis_BTCUSDT.png)
-- ![](basis_ETHUSDT.png)
-
+- ![](spot_close_BTCUSDT.png)
+- ![](basis_pct_BTCUSDT.png)
+###
+- ![](spot_close_ETHUSDT.png)
+- ![](basis_pct_ETHUSDT.png)
 ### Statistical summary
 
 | symbol   |   count |   basis_pct_mean |   basis_pct_std |   basis_pct_min |   basis_pct_p05 |   basis_pct_p50 |   basis_pct_p95 |   basis_pct_max |   basis_ann_mean |
@@ -71,7 +73,7 @@
 |:----------------|:--------------------|---------:|:---------------|:--------|:----------------|
 | arb_baseline    | 11.93%              |   5.568  | -0.25%         | -28.51% | 40.44%          |
 | arb_enhanced    | 11.98%              |   7.732  | -0.32%         | -28.46% | 40.44%          |
-| sr_price_action | 16.41%              |   0.8649 | -21.22%        | 16.41%  | 0.00%           |
+| sr_price_action | 16.90%              |   0.9039 | -20.62%        | 16.90%  | 0.00%           |
 
 ## Part 3: Discussion
 

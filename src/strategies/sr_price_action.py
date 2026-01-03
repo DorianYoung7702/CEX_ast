@@ -27,8 +27,8 @@ class SRConfig:
     # --- S/R ---
     pivot_order: int = 6              # 更快 pivot（原 10 偏慢）
     atr_window: int = 14
-    zone_atr_mult: float = 1.2        # zone 稍微收紧，减少“太宽导致信号迟钝”
-    min_bars: int = 30                # 原 200 太晚，年化被拖累
+    zone_atr_mult: float = 1        # zone 稍微收紧，减少“太宽导致信号迟钝”
+    min_bars: int = 50                # 原 200 太晚，年化被拖累
 
     # --- 趋势过滤（更偏进攻） ---
     use_trend_filter: bool = True
@@ -249,12 +249,12 @@ def run_sr_price_action(
         initial_capital=initial_capital,
         fee_rate=0.0004,
         slippage_bps=5.0,
-        risk_per_trade=0.02,     # ✅ 关键：放大年化（同时也会放大波动）
+        risk_per_trade=0.016,     # ✅ 关键：放大年化（同时也会放大波动）
         atr_window=cfg.atr_window,
-        atr_mult_stop=2.5,       # 更紧 stop，提高周转（风险：更容易被洗）
-        atr_mult_tp=9.0,         # 更远 TP，吃趋势（风险：触发更少）
+        atr_mult_stop=2,       # 更紧 stop，提高周转（风险：更容易被洗）
+        atr_mult_tp=5.0,         # 更远 TP，吃趋势（风险：触发更少）
         use_trend_filter=False,  # ✅ 注意：趋势过滤已在信号里做了，这里关闭避免“双重过滤”
-        ema_trend_window=2000,    #
+        ema_trend_window=200,    #
     )
 
 
