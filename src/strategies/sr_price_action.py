@@ -257,5 +257,4 @@ def run_sr_price_action(
         ema_trend_window=200,    #
     )
 
-
 __all__ = ["SRConfig", "run_sr_price_action"]

@@ -638,12 +638,28 @@ def backtest_spot_strategy(
     )
 
     # benchmark cash
-    bench_cash = pd.Series(initial_capital, index=pd.to_datetime(equity_curve["date"]))
+    # -----------------------
+    # benchmark: equal-weight buy&hold (open)  ✅ used for buy_hold_cagr + alpha
+    # -----------------------
+    bench_px = {}
+    for s in syms:
+        bench_px[s] = aligned[s].set_index("date")["open"]
+
+    bench_px_df = pd.concat(bench_px, axis=1).ffill().dropna(how="any")
+
+    if not bench_px_df.empty:
+        # equal-weight portfolio value, starting at initial_capital
+        bench_value = (bench_px_df / bench_px_df.iloc[0]).mean(axis=1) * float(initial_capital)
+        # align to equity dates
+        bench_value = bench_value.reindex(pd.to_datetime(equity_curve["date"])).ffill().bfill()
+    else:
+        bench_value = pd.Series(index=pd.to_datetime(equity_curve["date"]), dtype=float)
+
     perf_obj = summarize_performance(
         equity_curve=equity_curve,
         equity_col="equity",
         date_col="date",
-        benchmark_price=bench_cash,
+        benchmark_price=bench_value,  # ✅ buy&hold benchmark
         alpha_mode="cagr_diff",
     )
     perf = perf_obj.__dict__

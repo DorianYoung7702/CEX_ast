@@ -200,8 +200,8 @@ def main():
         f.write("- Interpretation: positive basis implies perpetual trading at a premium to spot; extreme values may indicate risk regimes.\n\n")
 
         f.write("### Basis time series plots\n")
-        f.write("- ![](basis_BTCUSDT.png)\n")
-        f.write("- ![](basis_ETHUSDT.png)\n\n")
+        f.write("- ![](basis_abs_BTCUSDT.png)\n")
+        f.write("- ![](basis_abs_ETHUSDT.png)\n\n")
 
         f.write("### Statistical summary\n\n")
         if not basis_stats.empty:
@@ -246,7 +246,6 @@ def main():
                     "pnl_funding": d.get("pnl_funding", 0.0),
                     "pnl_spot": d.get("pnl_spot", 0.0),
                     "pnl_perp": d.get("pnl_perp", 0.0),
-                    "pnl_fees": d.get("pnl_fees", 0.0),
                     "pnl_total_sum": d.get("pnl_total", 0.0),
                     "avg_n_active": d.get("avg_n_active", None),
                     "active_days": d.get("active_days", None),
@@ -254,7 +253,7 @@ def main():
             if rows:
                 ddf = pd.DataFrame(rows)
                 # format for markdown
-                for c in ["pnl_funding", "pnl_spot", "pnl_perp", "pnl_fees", "pnl_total_sum"]:
+                for c in ["pnl_funding", "pnl_spot", "pnl_perp", "pnl_total_sum"]:
                     if c in ddf.columns:
                         ddf[c] = ddf[c].apply(_fmt_money)
                 if "avg_n_active" in ddf.columns:
